@@ -47,12 +47,12 @@ input{
 .error-message{
     width: 100%;
     text-align: center;
-    visibility: hidden;
+    display: none;
     top:70%;
     color: red;
 }
 .active{
-    visibility: visible;
+   display: block;
 }
 .user-label,
 .password-label{
