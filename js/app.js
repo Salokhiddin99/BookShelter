@@ -1,25 +1,30 @@
+"use strict"
+
 const API_KEY = 'AIzaSyD5sf1x0AMZG4UgGTCZ6XsKL_wRPwoNfm0'
 const token = window.localStorage.getItem('token');
 let elLogOutBtn = document.querySelector('.log-out');
 let elForm = document.querySelector('.form-search');
-let elSearchInput = document.querySelector('.search-input');
+let elSearch = document.querySelector('.search-input');
 let elOrderByNew = document.querySelector('.results__order');
 let elList = document.querySelector('.main-card');
-let elModal = document.querySelector('.more-info__modal');
-let elOverlay = document.querySelector('.more-info__overlay');
+let elModal = document.querySelector('.info__modal');
+let elOverlay = document.querySelector('.info__overlay');
 let elTable = document.querySelector('.main-left__table');
 let elPrevBtn=document.querySelector('.prev');
 let elNextBtn=document.querySelector('.next')
 let elNumbers=document.querySelectorAll('.numbers .numbers__link');
-let elResultsNum=document.querySelector('.results__num');
+let elResults=document.querySelector('.results__num');
 let elPagination=document.querySelector('.numbers');
 let elErrorMessage=document.querySelector('.error');
 let orderName='relevance';
-let bookName='python'
+let bookName='frontend'
 let parsedData=JSON.parse(window.localStorage.getItem('bookmarks'));
 let fullArr = [];
 let bookmarkArr=parsedData||[];
 let page=0;
+
+
+
 
 let renderCards = (fullArr, htmlElement) => {
     let txt = "";
@@ -57,130 +62,17 @@ let renderCards = (fullArr, htmlElement) => {
     htmlElement.innerHTML = txt;
 }
 
-let closeModal = () => {
-    elModal.classList.remove('more-info__modal--active');
-    elOverlay.classList.remove('more-info__overlay--active')
-}
-
-let openModal = () => {
-    elModal.classList.add('more-info__modal--active');
-    elOverlay.classList.add('more-info__overlay--active')
-}
-
-let openPrevDisabledBtn=()=>{
-    elPrevBtn.classList.add('prev--active');
-    elPrevBtn.disabled=true;
-}
-
-let closePrevDisabledBtn=()=>{
-    elPrevBtn.classList.remove('prev--active')
-    elPrevBtn.disabled=false;
-}
-
-let closeNextDisabledBtn=()=>{
-    elNextBtn.classList.remove('prev--active');
-    elNextBtn.disabled=false;
-}
 
 
-let openNextDisabledBtn=()=>{
-    elNextBtn.classList.add('prev--active');
-    elNextBtn.disabled=true;
-}
 
 
-let closeDisabledBtn=()=>{
-    closeNextDisabledBtn()
-    closePrevDisabledBtn()
-}
 
-let renderMoreInfoModal = (item, htmlElement) => {
-    htmlElement.innerHTML=""
 
-    let moreInfoFlex=document.createElement('div')
-    let moreInfoTitle=document.createElement('h4')
-    let moreInfoXmark=document.createElement('img');
-    let moreInfoImg=document.createElement('img');
-    let moreInfoDesc=document.createElement('p');
-    let moreInfoAuthors=document.createElement('p');
-    let moreInfoPublished=document.createElement('p');
-    let moreInfoPublishers=document.createElement('p');
-    let moreInfoCategories=document.createElement('p');
-    let moreInfoPage=document.createElement('p');
-    let moreInfoBtnWrapper=document.createElement('div');
-    let moreInfoBtn=document.createElement('a');
-    let moreInfoPublishedWrapper=document.createElement('span')
-    let moreInfoPublishersWrapper=document.createElement('span')
-    let moreInfoPageWrapper=document.createElement('span');
-    
-    moreInfoFlex.setAttribute('class','more-info__flex');
-    moreInfoTitle.setAttribute('class','more-info__title');
-    moreInfoXmark.setAttribute('class','x-mark')
-    moreInfoXmark.setAttribute('src','./images/x-mark.svg');
-    moreInfoImg.setAttribute('src',item.volumeInfo.imageLinks?.thumbnail)
-    moreInfoImg.setAttribute('class','more-info__img')
-    moreInfoImg.setAttribute('alt','something went wrong')
-    moreInfoDesc.setAttribute('class','more-info__text')
-    moreInfoAuthors.setAttribute('class','more-info__author')
-    moreInfoPublished.setAttribute('class','more-info__author');
-    moreInfoPublishers.setAttribute('class','more-info__author');
-    moreInfoCategories.setAttribute('class','more-info__author');
-    moreInfoPage.setAttribute('class','more-info__author');
-    moreInfoBtn.setAttribute('class','more-info__btn')
-    moreInfoBtn.setAttribute('href',item.volumeInfo.previewLink)
-    moreInfoBtnWrapper.setAttribute('class','more-info__btn-wrapper')
 
-    moreInfoTitle.textContent=item.volumeInfo?.title;
-    moreInfoDesc.textContent=item.volumeInfo?.description;
 
-    moreInfoAuthors.textContent="Authors :";
-    moreInfoPublished.textContent="Published :";
-    moreInfoPublishers.textContent="Publishers :";
-    moreInfoCategories.textContent="Categories :";
-    moreInfoPage.textContent="Pages Count :"
-    moreInfoBtn.textContent="Read"
-    item.volumeInfo.authors?.forEach(element=>{
-        let name=document.createElement('span');
-        name.setAttribute('class','more-info__author-name')
-        name.textContent=element;
-        moreInfoAuthors.appendChild(name)
-    })
-    
-    item.volumeInfo.categories?.forEach(element=>{
-        let name=document.createElement('span');
-        name.setAttribute('class','more-info__author-name')
-        name.textContent=element;
-        moreInfoCategories.appendChild(name)
-    })
-    moreInfoPublishedWrapper.setAttribute('class','more-info__author-name')
-    moreInfoPublishedWrapper.textContent=item.volumeInfo?.publishedDate;
-    moreInfoPublished.appendChild(moreInfoPublishedWrapper)
-
-    moreInfoPublishersWrapper.setAttribute('class','more-info__author-name')
-    moreInfoPublishersWrapper.textContent=item.volumeInfo?.publisher;
-    moreInfoPublishers.appendChild(moreInfoPublishersWrapper);
-
-    moreInfoPageWrapper.setAttribute('class','more-info__author-name');
-    moreInfoPageWrapper.textContent=item.volumeInfo?.pageCount;
-    moreInfoPage.appendChild(moreInfoPageWrapper)
-
-    htmlElement.appendChild(moreInfoFlex);
-    moreInfoFlex.append(moreInfoTitle)
-    moreInfoFlex.append(moreInfoXmark);
-    htmlElement.appendChild(moreInfoImg);
-    htmlElement.appendChild(moreInfoDesc);
-    htmlElement.appendChild(moreInfoAuthors);
-    htmlElement.appendChild(moreInfoPublished);
-    htmlElement.appendChild(moreInfoPublishers);
-    htmlElement.appendChild(moreInfoCategories);
-    htmlElement.appendChild(moreInfoPage);
-    htmlElement.appendChild(moreInfoBtnWrapper)
-    moreInfoBtnWrapper.appendChild(moreInfoBtn)
-}
-
-let renderBookmark = (arr, htmlElement) => {
+let renderBookmark = (bookArr, htmlElement) => {
     let txt = '';
-    arr.forEach(item => {
+    bookArr.forEach(item => {
         let element = `
         <div class="main-left__table-row">
                         <div class="main-left__table-data">
@@ -203,6 +95,8 @@ let renderBookmark = (arr, htmlElement) => {
     htmlElement.innerHTML = txt;
 }
 
+
+
 let res;
 let renderPage=(data)=>{
     res=0;
@@ -217,16 +111,112 @@ let renderPage=(data)=>{
     elPagination.innerHTML=txt;
 }
 
+let closeModal = () => {
+    elModal.classList.remove('modal-active');
+    elOverlay.classList.remove('overlay-active')
+}
+
+let openModal = () => {
+    elModal.classList.add('modal-active');
+    elOverlay.classList.add('overlay-active')
+}
+
+
+let renderInfoModal = (item, htmlElement) => {
+    htmlElement.innerHTML=""
+
+    let infoDiv=document.createElement('div')
+    let infoTitle=document.createElement('h4')
+    let infoXmark=document.createElement('img');
+    let infoImg=document.createElement('img');
+    let infoDesc=document.createElement('p');
+    let infoAuthors=document.createElement('p');
+    let infoPublished=document.createElement('p');
+    let infoPublishers=document.createElement('p');
+    let infoCategories=document.createElement('p');
+    let infoPage=document.createElement('p');
+    let infoBtnBox=document.createElement('div');
+    let infoBtn=document.createElement('a');
+    let infoPublishedBox=document.createElement('span')
+    let infoPublishersBox=document.createElement('span')
+    let infoPageBox=document.createElement('span');
+    
+    infoDiv.setAttribute('class','more-flex');
+    infoTitle.setAttribute('class','more-title');
+    infoXmark.setAttribute('class','x-mark')
+    infoXmark.setAttribute('src','./images/x-mark.svg');
+    infoImg.setAttribute('src',item.volumeInfo.imageLinks?.thumbnail)
+    infoImg.setAttribute('class','more-info__img')
+    infoImg.setAttribute('alt','something went wrong')
+    infoDesc.setAttribute('class','more-info__text')
+    infoAuthors.setAttribute('class','more__author')
+    infoPublished.setAttribute('class','more__author');
+    infoPublishers.setAttribute('class','more__author');
+    infoCategories.setAttribute('class','more__author');
+    infoPage.setAttribute('class','more__author');
+    infoBtn.setAttribute('class','more-info__btn')
+    infoBtn.setAttribute('href',item.volumeInfo.previewLink)
+    infoBtnBox.setAttribute('class','more-btn__wrapper')
+
+    infoTitle.textContent=item.volumeInfo?.title;
+    infoDesc.textContent=item.volumeInfo?.description;
+
+    infoAuthors.textContent="Authors :";
+    infoPublished.textContent="Published :";
+    infoPublishers.textContent="Publishers :";
+    infoCategories.textContent="Categories :";
+    infoPage.textContent="Pages Count :"
+    infoBtn.textContent="Read"
+    item.volumeInfo.authors?.forEach(element=>{
+        let name=document.createElement('span');
+        name.setAttribute('class','more-name')
+        name.textContent=element;
+        infoAuthors.appendChild(name)
+    })
+    
+    item.volumeInfo.categories?.forEach(element=>{
+        let name=document.createElement('span');
+        name.setAttribute('class','more-name')
+        name.textContent=element;
+        infoCategories.appendChild(name)
+    })
+    infoPublishedBox.setAttribute('class','more-name')
+    infoPublishedBox.textContent=item.volumeInfo?.publishedDate;
+    infoPublished.appendChild(infoPublishedBox)
+
+    infoPublishersBox.setAttribute('class','more-name')
+    infoPublishersBox.textContent=item.volumeInfo?.publisher;
+    infoPublishers.appendChild(infoPublishersBox);
+
+    infoPageBox.setAttribute('class','more-name');
+    infoPageBox.textContent=item.volumeInfo?.pageCount;
+    infoPage.appendChild(infoPageBox)
+
+    htmlElement.appendChild(infoDiv);
+    infoDiv.append(infoTitle)
+    infoDiv.append(infoXmark);
+    htmlElement.appendChild(infoImg);
+    htmlElement.appendChild(infoDesc);
+    htmlElement.appendChild(infoAuthors);
+    htmlElement.appendChild(infoPublished);
+    htmlElement.appendChild(infoPublishers);
+    htmlElement.appendChild(infoCategories);
+    htmlElement.appendChild(infoPage);
+    htmlElement.appendChild(infoBtnBox)
+    infoBtnBox.appendChild(infoBtn)
+}
+
 let renderError=()=>{
-    elResultsNum.textContent=0;
+    elResults.textContent=0;
     elErrorMessage.classList.add('error-active');
     elList.innerHTML="";
     elPagination.innerHTML="";
-    openNextDisabledBtn()
-    openPrevDisabledBtn()
+    openNextBtn()
+    openPrevBtn()
     page=0;
 }
-elResultsNum.textContent=fullArr.totalItems;
+
+elResults.textContent=fullArr.totalItems;
 
 if (!token) {
     window.location.replace('index.html');
@@ -236,14 +226,14 @@ elLogOutBtn.addEventListener('click', () => {
     window.location.replace('index.html');
 })
 
-elForm.addEventListener('submit', (e) => {
-    e.preventDefault();
+elForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
     elErrorMessage.classList.remove('error-active');
-    bookName = elSearchInput.value;
+    bookName = elSearch.value;
     orderName='relevance'
-    elSearchInput.value = null;
+    elSearch.value = null;
     page=0;
-    closeNextDisabledBtn();
+    closeNextBtn();
     fullData();
 })
 elOrderByNew.addEventListener('click',()=>{
@@ -251,14 +241,14 @@ elOrderByNew.addEventListener('click',()=>{
     elErrorMessage.classList.remove('error-active');
     fullData();
 })
-elList.addEventListener('click', e => {
-    if (e.target.matches('.main-card__info')) {
-        let moreInfoBtnId = e.target.dataset.more;
+elList.addEventListener('click', evt => {
+    if (evt.target.matches('.main-card__info')) {
+        let moreInfoBtnId = evt.target.dataset.more;
         let findElement = fullArr.find(item => item.id === moreInfoBtnId);
         openModal();
-        renderMoreInfoModal(findElement, elModal)
-    } else if (e.target.matches('.main-card__bookmark')) {
-        let bookmarkId = e.target.dataset.bookmark;
+        renderInfoModal(findElement, elModal)
+    } else if (evt.target.matches('.main-card__bookmark')) {
+        let bookmarkId = evt.target.dataset.bookmark;
         let findElement = fullArr.find(item => item.id === bookmarkId);
         if (!bookmarkArr.includes(findElement)) bookmarkArr.push(findElement);
         window.localStorage.setItem('bookmarks',JSON.stringify(bookmarkArr));
@@ -266,9 +256,9 @@ elList.addEventListener('click', e => {
     }
 })
 
-elTable.addEventListener('click',e=>{
-    if(e.target.matches('.bookmark-delete')){
-        let bookmarkDeleteId=e.target.dataset.delete;
+elTable.addEventListener('click',evt=>{
+    if(evt.target.matches('.bookmark-delete')){
+        let bookmarkDeleteId=evt.target.dataset.delete;
         let findDeletedIndex=bookmarkArr.findIndex(item=>item.id===bookmarkDeleteId);
         bookmarkArr.splice(findDeletedIndex,1);
         window.localStorage.setItem('bookmarks',JSON.stringify(bookmarkArr));
@@ -278,45 +268,73 @@ elTable.addEventListener('click',e=>{
         renderBookmark(bookmarkArr,elTable);
     }
 })
-elModal.addEventListener('click',(e)=>{
-    if(e.target.matches('.x-mark')){
+elModal.addEventListener('click',(evt)=>{
+    if(evt.target.matches('.x-mark')){
         closeModal();
     }
 })
 elOverlay.addEventListener('click', closeModal)
-document.addEventListener('keydown', (e) => {
-    if (e.keyCode === 27) {
+document.addEventListener('keydown', (evt) => {
+    if (evt.keyCode === 27) {
         closeModal();
     }
 })
-elPagination.addEventListener('click',e=>{
-    if(e.target.matches('.numbers__link')){
-        let pageBtnId=e.target.dataset.pageid*1;
+elPagination.addEventListener('click',evt=>{
+    if(evt.target.matches('.numbers__link')){
+        let pageBtnId=evt.target.dataset.pageid*1;
         page=pageBtnId*10;
         if(page>0){
-            closeDisabledBtn();
+            closeBtn();
         }
         else{
-            openPrevDisabledBtn();
+            openPrevBtn();
         }
         fullData();
     }
 })
-elPrevBtn.addEventListener('click',(e)=>{
-    closeNextDisabledBtn()
+
+let openPrevBtn=()=>{
+    elPrevBtn.classList.add('prev--active');
+    elPrevBtn.disabled=true;
+}
+
+let closePrevBtn=()=>{
+    elPrevBtn.classList.remove('prev--active')
+    elPrevBtn.disabled=false;
+}
+
+let closeNextBtn=()=>{
+    elNextBtn.classList.remove('prev--active');
+    elNextBtn.disabled=false;
+}
+
+
+let openNextBtn=()=>{
+    elNextBtn.classList.add('prev--active');
+    elNextBtn.disabled=true;
+}
+
+
+let closeBtn=()=>{
+    closeNextBtn()
+    closePrevBtn()
+}
+
+elPrevBtn.addEventListener('click',(evt)=>{
+    closeNextBtn()
     page>10?
     (page-=10,fullData())
     :( 
     page=0,
-    openPrevDisabledBtn(),
+    openPrevBtn(),
     fullData()
     )
 })
 elNextBtn.addEventListener('click',()=>{
-    closePrevDisabledBtn();
+    closePrevBtn();
     page+=10;
     if(page===res*10){
-        openNextDisabledBtn();
+        openNextBtn();
         page=res;
     }
     fullData()
@@ -333,7 +351,7 @@ const fullData = () => {
         .then(req => req.json())
         .then(data => {
             fullArr = data.items;
-            elResultsNum.textContent=data.totalItems
+            elResults.textContent=data.totalItems
             renderPage(data.totalItems);
             renderCards(data.items, elList)
         })

@@ -1,31 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/styles.css">
+
+    <title>Log In</title>
 </head>
+
 <body>
-    <main class="main-login">
-       <img src="./images/login-logo.svg" width="226" height="44" alt="login logo" class="login-logo">
-    <form class="form" >
-        <label for="user-label" class="user-label">
-            <img src="./images/user.svg" alt="user" class="user-img">
-            <input type="email" class="email-input" name="email" id="user-label" placeholder="USERNAME"  required>
-        </label>
-        <label for="password-label" class="password-label">
-            <img src="./images/lock.svg" alt="lock" class="lock-img">
-            <input type="password" class="password-input" name="password" id="password-label" placeholder="PASSWORD" required>
-        </label>
-        <div class="btn-box">
-            <button type="submit" class="login">LOGIN</button>
+    <img src="/images/login-logo.svg" alt="logo">
+    <form class="form">
+        <div class="input">
+            <img src="/img/user.png" alt="">
+            <input class="username-input" type="text" placeholder="USERNAME" required name="username">
         </div>
+
+        <div class="input">
+            <img src="/img/lock.png" alt="">
+            <input class="password-input" type="password" placeholder="PASSWORD" required name="password">
+        </div>
+
+        <button type="submit" class="button">Login</button>
+
+        <p class="forgot">Forgot password?</p>
     </form>
-    <a href="#" class="forgot-password">Forgot password?</a>
-    <p class="error-message">Uncorrect login or password</p>
-</main>
+
+
     <script src="./js/login.js"></script>
 </body>
+
 </html>
