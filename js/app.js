@@ -1,7 +1,11 @@
 "use strict"
 
 const API_KEY = 'AIzaSyD5sf1x0AMZG4UgGTCZ6XsKL_wRPwoNfm0'
+
+
 const token = window.localStorage.getItem('token');
+
+
 let elLogOutBtn = document.querySelector('.log-out');
 let elForm = document.querySelector('.form-search');
 let elSearch = document.querySelector('.search-input');
@@ -16,6 +20,10 @@ let elNumbers=document.querySelectorAll('.numbers .numbers__link');
 let elResults=document.querySelector('.results__num');
 let elPagination=document.querySelector('.numbers');
 let elErrorMessage=document.querySelector('.error');
+
+
+
+
 let orderName='relevance';
 let bookName='frontend'
 let parsedData=JSON.parse(window.localStorage.getItem('bookmarks'));
@@ -26,9 +34,13 @@ let page=0;
 
 
 
-let renderCards = (fullArr, htmlElement) => {
+let renderCards = (dataArr, htmlElement) => {
+    
+    
     let txt = "";
-    fullArr.forEach(element => {
+
+
+    dataArr.forEach(element => {
         let item = `
     <li class="main-card__item">
     <div class="main-card__img">
@@ -57,8 +69,11 @@ let renderCards = (fullArr, htmlElement) => {
     </div>
 </li>
         `
+
         txt += item;
     });
+
+
     htmlElement.innerHTML = txt;
 }
 
@@ -72,6 +87,8 @@ let renderCards = (fullArr, htmlElement) => {
 
 let renderBookmark = (bookArr, htmlElement) => {
     let txt = '';
+
+
     bookArr.forEach(item => {
         let element = `
         <div class="main-left__table-row">
@@ -97,17 +114,21 @@ let renderBookmark = (bookArr, htmlElement) => {
 
 
 
-let res;
+let pages;
+
 let renderPage=(data)=>{
-    res=0;
+    pages=0;
     let txt='';
-    res=(Number(data)%10===0)?Math.floor(data/10):Math.floor(data/10)+1
-    for(let item=0;item<res;item++){
+    pages=(Number(data)%10===0)?Math.floor(data/10):Math.floor(data/10)+1
+
+    for(let item=0;item<pages;item++){
         let page=`
         <li class="number"><a href="#" class="numbers__link" data-pageid=${item}>${item+1}</a></li>
         `
         txt+=page;
     }
+
+
     elPagination.innerHTML=txt;
 }
 
@@ -125,6 +146,8 @@ let openModal = () => {
 let renderInfoModal = (item, htmlElement) => {
     htmlElement.innerHTML=""
 
+
+
     let infoDiv=document.createElement('div')
     let infoTitle=document.createElement('h4')
     let infoXmark=document.createElement('img');
@@ -141,6 +164,9 @@ let renderInfoModal = (item, htmlElement) => {
     let infoPublishersBox=document.createElement('span')
     let infoPageBox=document.createElement('span');
     
+
+
+
     infoDiv.setAttribute('class','more-flex');
     infoTitle.setAttribute('class','more-title');
     infoXmark.setAttribute('class','x-mark')
@@ -158,8 +184,12 @@ let renderInfoModal = (item, htmlElement) => {
     infoBtn.setAttribute('href',item.volumeInfo.previewLink)
     infoBtnBox.setAttribute('class','more-btn__wrapper')
 
+
+
     infoTitle.textContent=item.volumeInfo?.title;
     infoDesc.textContent=item.volumeInfo?.description;
+
+
 
     infoAuthors.textContent="Authors :";
     infoPublished.textContent="Published :";
@@ -206,6 +236,10 @@ let renderInfoModal = (item, htmlElement) => {
     infoBtnBox.appendChild(infoBtn)
 }
 
+
+
+
+
 let renderError=()=>{
     elResults.textContent=0;
     elErrorMessage.classList.add('error-active');
@@ -218,13 +252,17 @@ let renderError=()=>{
 
 elResults.textContent=fullArr.totalItems;
 
+
 if (!token) {
     window.location.replace('index.html');
 }
+
+
 elLogOutBtn.addEventListener('click', () => {
     window.localStorage.removeItem('token');
     window.location.replace('index.html');
 })
+
 
 elForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
@@ -236,56 +274,79 @@ elForm.addEventListener('submit', (evt) => {
     closeNextBtn();
     fullData();
 })
+
+
+
 elOrderByNew.addEventListener('click',()=>{
     orderName='newest';
     elErrorMessage.classList.remove('error-active');
     fullData();
 })
+
+
 elList.addEventListener('click', evt => {
+
     if (evt.target.matches('.main-card__info')) {
-        let moreInfoBtnId = evt.target.dataset.more;
-        let findElement = fullArr.find(item => item.id === moreInfoBtnId);
+        let InfoBtnId = evt.target.dataset.more;
+        let resetElement = fullArr.find(item => item.id === InfoBtnId);
         openModal();
-        renderInfoModal(findElement, elModal)
+        renderInfoModal(resetElement, elModal)
+
     } else if (evt.target.matches('.main-card__bookmark')) {
         let bookmarkId = evt.target.dataset.bookmark;
-        let findElement = fullArr.find(item => item.id === bookmarkId);
-        if (!bookmarkArr.includes(findElement)) bookmarkArr.push(findElement);
+        let resetElement = fullArr.find(item => item.id === bookmarkId);
+        if (!bookmarkArr.includes(resetElement)) bookmarkArr.push(resetElement);
         window.localStorage.setItem('bookmarks',JSON.stringify(bookmarkArr));
         renderBookmark(bookmarkArr, elTable);
     }
 })
 
-elTable.addEventListener('click',evt=>{
+elTable.addEventListener('click',evt => {
+
     if(evt.target.matches('.bookmark-delete')){
-        let bookmarkDeleteId=evt.target.dataset.delete;
-        let findDeletedIndex=bookmarkArr.findIndex(item=>item.id===bookmarkDeleteId);
-        bookmarkArr.splice(findDeletedIndex,1);
+        let DeleteBtnId=evt.target.dataset.delete;
+        let findDeletedBtnIndex=bookmarkArr.findIndex(item => item.id === DeleteBtnId);
+        bookmarkArr.splice(findDeletedBtnIndex,1);
         window.localStorage.setItem('bookmarks',JSON.stringify(bookmarkArr));
+
         if(bookmarkArr.length===0){
             window.localStorage.removeItem('bookmarks');
         }
         renderBookmark(bookmarkArr,elTable);
     }
 })
-elModal.addEventListener('click',(evt)=>{
+
+
+
+elModal.addEventListener('click',(evt) => {
+
     if(evt.target.matches('.x-mark')){
         closeModal();
     }
 })
+
+
 elOverlay.addEventListener('click', closeModal)
+
 document.addEventListener('keydown', (evt) => {
+
     if (evt.keyCode === 27) {
         closeModal();
     }
 })
-elPagination.addEventListener('click',evt=>{
+
+
+
+elPagination.addEventListener('click',evt => {
+
     if(evt.target.matches('.numbers__link')){
         let pageBtnId=evt.target.dataset.pageid*1;
         page=pageBtnId*10;
+
         if(page>0){
             closeBtn();
         }
+
         else{
             openPrevBtn();
         }
@@ -293,10 +354,12 @@ elPagination.addEventListener('click',evt=>{
     }
 })
 
+
 let openPrevBtn=()=>{
     elPrevBtn.classList.add('prev--active');
     elPrevBtn.disabled=true;
 }
+
 
 let closePrevBtn=()=>{
     elPrevBtn.classList.remove('prev--active')
@@ -333,6 +396,7 @@ elPrevBtn.addEventListener('click',(evt)=>{
 elNextBtn.addEventListener('click',()=>{
     closePrevBtn();
     page+=10;
+
     if(page===res*10){
         openNextBtn();
         page=res;
@@ -340,6 +404,7 @@ elNextBtn.addEventListener('click',()=>{
     fullData()
 })
 elNumbers.forEach(item=>{
+
     item.addEventListener('click',()=>{
         resetLinks();
         item.classList.add('active')
