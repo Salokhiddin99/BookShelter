@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="./css/home.css">
+</head>
+
+<body>
+    <header class=" header">
+        <div class="container">
+            <nav class="nav">
+                <a href="#" class="logo text-white">
+                    <img src="./images/header-logo.svg" alt="header logo">
+                </a>
+                <form class="form-search">
+                    <label for="form-search__label" class="form-search__label">
+                        <img src="images/search-logo.svg" alt="search logo">
+                        <input type="search" class="search-input" id="form-search__label" placeholder="Search books">
+                    </label>
+                </form>
+                <ul class="list">
+                    <li class="list__item">
+                        <a href="#" class="list__item-sun">
+                            <img src="./images/sun.svg" alt="sun logo">
+                        </a>
+                    </li>
+                    <li class="list__item">
+                        <a href="#" class="log-out text-white">
+                            Logout
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <section class="results">
+        <div class="container results__container">
+            <p class="results__text">Showing <span class="results__num">0</span> result(s)</p>
+            <div class="results__order">
+                <img src="./images/calendar.svg" alt="calendar">
+                Order by newest
+            </div>
+        </div>
+    </section>
+    <div class="more-info__modal"></div>
+    <div class="more-info__overlay">
+
+    </div>
+    <main class="main">
+        <div class="container main__container">
+            <aside class="main-left">
+                <h3 class="main-left__title">
+                    Bookmarks
+                </h3>
+                <p class="main-left__text">
+                    If you don’t like to read, you haven’t found the right book
+                </p>
+                <div class="main-left__table">
+
+                </div>
+            </aside>
+            <aside class="main-right">
+                <ul class="main-card">
+                    <li class="main-card__item">
+                        <div class="card-header main-card__img">
+                            <img src="https://via.placeholder.com/200" alt="an image">
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title main-card__title">
+                                Title
+                            </h4>
+                            <p class="main-card__text">
+                                Lorem ipsum dolor sit amet.
+                            </p>
+                            <span class="main-card__year">2009</span>
+                            <div class="main-card__btns">
+                                <button class=" main-card__bookmark" data-bookmark=${element.id}>
+                                    Bookmark
+                                </button>
+                                <button class=" main-card__info" data-more=${element.id}>
+                                    More Info
+                                </button>
+                                <a href='${element.accessInfo.webReaderLink}' class="main-card__read"
+                                    data-read=${element.id}>
+                                    Read
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="pagination">
+                    <button class="prev prev--active">
+                        <img src="./images/arrow-left.svg" alt="arrow-left">
+                    </button>
+                    <ul class="numbers">
+                        <li class="number"><a href="#" class="numbers__link active">1</a></li>
+                        <li class="number"><a href="#" class="numbers__link">1</a></li>
+                        <li class="number"><a href="#" class="numbers__link">1</a></li>
+                        <li class="number"><a href="#" class="numbers__link">1</a></li>
+                        <li class="number"><a href="#" class="numbers__link">1</a></li>
+                        <li class="number"><a href="#" class="numbers__link">1</a></li>
+                    </ul>
+                    <button class="next">
+                        <img src="./images/arrow-right.svg" alt="arrow-right">
+                    </button>
+                </div>
+            </aside>
+        </div>
+    </main>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script> -->
+    <script src="./js/app.js"></script>
+</body>
+
+</html>

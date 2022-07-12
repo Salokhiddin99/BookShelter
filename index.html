@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <main class="main-login">
+       <img src="./images/login-logo.svg" width="226" height="44" alt="login logo" class="login-logo">
+    <form class="form" >
+        <label for="user-label" class="user-label">
+            <img src="./images/user.svg" alt="user" class="user-img">
+            <input type="email" class="email-input" name="email" id="user-label" placeholder="USERNAME"  required>
+        </label>
+        <label for="password-label" class="password-label">
+            <img src="./images/lock.svg" alt="lock" class="lock-img">
+            <input type="password" class="password-input" name="password" id="password-label" placeholder="PASSWORD" required>
+        </label>
+        <div class="btn-box">
+            <button type="submit" class="login">LOGIN</button>
+        </div>
+    </form>
+    <a href="#" class="forgot-password">Forgot password?</a>
+    <p class="error-message">Uncorrect login or password</p>
+</main>
+    <script src="./js/login.js"></script>
+</body>
+</html>

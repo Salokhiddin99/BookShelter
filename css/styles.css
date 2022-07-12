@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: 'Montserrat', sans-serif;
+    height: 100vh;
+    background-image: linear-gradient(to right,rgba(0,0,0,.7),rgba(0,0,0,0.7)),
+    url('../images/Login.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+a{
+    text-decoration: none;
+}
+input{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 20px;
+    height:100%;
+    width:230px;
+    margin-left:19px;
+    outline: none;
+    border: none;
+    background: none;
+    transform: translateY(-5px);
+    color: #FFFFFF;
+    
+}
+
+.main-login{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.login-logo{
+    margin-bottom: 50px;
+}
+.error-message{
+    width: 100%;
+    text-align: center;
+    visibility: hidden;
+    top:70%;
+    color: red;
+}
+.active{
+    visibility: visible;
+}
+.user-label,
+.password-label{
+    padding-left: 12px;
+    display: block;
+    width: 300px;
+    height: 45px;
+    border: 1px solid #FFFFFF;
+    border-radius: 4px;
+}
+.user-label{
+    margin-bottom: 23px;
+}
+.user-img,
+.lock-img{
+    margin-top:12px;
+}
+
+.email-input::placeholder,
+.password-input::placeholder{
+    color: #FFFFFF;
+    text-transform: uppercase;
+}
+
+.btn-box{
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+.login{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    width:300px;
+    height:45px;
+    background-color: #FFFFFF;
+    border-radius: 4px;
+    padding:12px 0;
+    color: #0D75FF;
+    cursor: pointer;
+}
+.forgot-password{
+    width: 100%;
+    margin-top: 10px;
+    text-align:right;
+    color: #FFFFFF;
+}
