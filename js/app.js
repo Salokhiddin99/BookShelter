@@ -6,20 +6,20 @@ const API_KEY = 'AIzaSyD5sf1x0AMZG4UgGTCZ6XsKL_wRPwoNfm0'
 const token = window.localStorage.getItem('token');
 
 
-let elLogOutBtn = document.querySelector('.log-out');
-let elForm = document.querySelector('.form-search');
-let elSearch = document.querySelector('.search-input');
-let elOrderByNew = document.querySelector('.results__order');
-let elList = document.querySelector('.main-card');
-let elModal = document.querySelector('.info__modal');
-let elOverlay = document.querySelector('.info__overlay');
-let elTable = document.querySelector('.main-left__table');
-let elPrevBtn=document.querySelector('.prev');
-let elNextBtn=document.querySelector('.next')
-let elNumbers=document.querySelectorAll('.numbers .numbers__link');
-let elResults=document.querySelector('.results__num');
-let elPagination=document.querySelector('.numbers');
-let elErrorMessage=document.querySelector('.error');
+const elLogOutBtn = document.querySelector('.log-out');
+const elForm = document.querySelector('.form-search');
+const elSearch = document.querySelector('.search-input');
+const elOrderNew = document.querySelector('.results__order');
+const elList = document.querySelector('.main-card');
+const elModal = document.querySelector('.info__modal');
+const elOverlay = document.querySelector('.info__overlay');
+const elCard = document.querySelector('.main-left__table');
+const elPrevBtn=document.querySelector('.prev');
+const elNextBtn=document.querySelector('.next')
+const elNumbers=document.querySelectorAll('.numbers .numbers__link');
+const elResults=document.querySelector('.results__num');
+const elPagination=document.querySelector('.numbers');
+const elError=document.querySelector('.error');
 
 
 
@@ -34,7 +34,7 @@ let page=0;
 
 
 
-let renderCards = (dataArr, htmlElement) => {
+const renderCards = (dataArr, htmlElement) => {
     
     
     let txt = "";
@@ -84,8 +84,7 @@ let renderCards = (dataArr, htmlElement) => {
 
 
 
-
-let renderBookmark = (bookArr, htmlElement) => {
+const renderBookmark = (bookArr, htmlElement) => {
     let txt = '';
 
 
@@ -132,37 +131,37 @@ let renderPage=(data)=>{
     elPagination.innerHTML=txt;
 }
 
-let closeModal = () => {
+const closeModal = () => {
     elModal.classList.remove('modal-active');
     elOverlay.classList.remove('overlay-active')
 }
 
-let openModal = () => {
+const openModal = () => {
     elModal.classList.add('modal-active');
     elOverlay.classList.add('overlay-active')
 }
 
 
-let renderInfoModal = (item, htmlElement) => {
+const renderInfoModal = (item, htmlElement) => {
     htmlElement.innerHTML=""
 
 
 
-    let infoDiv=document.createElement('div')
-    let infoTitle=document.createElement('h4')
-    let infoXmark=document.createElement('img');
-    let infoImg=document.createElement('img');
-    let infoDesc=document.createElement('p');
-    let infoAuthors=document.createElement('p');
-    let infoPublished=document.createElement('p');
-    let infoPublishers=document.createElement('p');
-    let infoCategories=document.createElement('p');
-    let infoPage=document.createElement('p');
-    let infoBtnBox=document.createElement('div');
-    let infoBtn=document.createElement('a');
-    let infoPublishedBox=document.createElement('span')
-    let infoPublishersBox=document.createElement('span')
-    let infoPageBox=document.createElement('span');
+    const infoDiv=document.createElement('div')
+    const infoTitle=document.createElement('h4')
+    const infoXmark=document.createElement('img');
+    const infoImg=document.createElement('img');
+    const infoDesc=document.createElement('p');
+    const infoAuthors=document.createElement('p');
+    const infoPublished=document.createElement('p');
+    const infoPublishers=document.createElement('p');
+    const infoCategories=document.createElement('p');
+    const infoPage=document.createElement('p');
+    const infoBtnBox=document.createElement('div');
+    const infoBtn=document.createElement('a');
+    const infoPublishedBox=document.createElement('span')
+    const infoPublishersBox=document.createElement('span')
+    const infoPageBox=document.createElement('span');
     
 
 
@@ -240,9 +239,9 @@ let renderInfoModal = (item, htmlElement) => {
 
 
 
-let renderError=()=>{
+const renderError=()=>{
     elResults.textContent=0;
-    elErrorMessage.classList.add('error-active');
+    elError.classList.add('error-active');
     elList.innerHTML="";
     elPagination.innerHTML="";
     openNextBtn()
@@ -266,7 +265,7 @@ elLogOutBtn.addEventListener('click', () => {
 
 elForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    elErrorMessage.classList.remove('error-active');
+    elError.classList.remove('error-active');
     bookName = elSearch.value;
     orderName='relevance'
     elSearch.value = null;
@@ -277,9 +276,9 @@ elForm.addEventListener('submit', (evt) => {
 
 
 
-elOrderByNew.addEventListener('click',()=>{
+elOrderNew.addEventListener('click',()=>{
     orderName='newest';
-    elErrorMessage.classList.remove('error-active');
+    elError.classList.remove('error-active');
     fullData();
 })
 
@@ -297,11 +296,11 @@ elList.addEventListener('click', evt => {
         let resetElement = fullArr.find(item => item.id === bookmarkId);
         if (!bookmarkArr.includes(resetElement)) bookmarkArr.push(resetElement);
         window.localStorage.setItem('bookmarks',JSON.stringify(bookmarkArr));
-        renderBookmark(bookmarkArr, elTable);
+        renderBookmark(bookmarkArr, elCard);
     }
 })
 
-elTable.addEventListener('click',evt => {
+elCard.addEventListener('click',evt => {
 
     if(evt.target.matches('.bookmark-delete')){
         let DeleteBtnId=evt.target.dataset.delete;
@@ -312,7 +311,7 @@ elTable.addEventListener('click',evt => {
         if(bookmarkArr.length===0){
             window.localStorage.removeItem('bookmarks');
         }
-        renderBookmark(bookmarkArr,elTable);
+        renderBookmark(bookmarkArr,elCard);
     }
 })
 
@@ -355,30 +354,30 @@ elPagination.addEventListener('click',evt => {
 })
 
 
-let openPrevBtn=()=>{
+const openPrevBtn=()=>{
     elPrevBtn.classList.add('prev--active');
     elPrevBtn.disabled=true;
 }
 
 
-let closePrevBtn=()=>{
+const closePrevBtn=()=>{
     elPrevBtn.classList.remove('prev--active')
     elPrevBtn.disabled=false;
 }
 
-let closeNextBtn=()=>{
+const closeNextBtn=()=>{
     elNextBtn.classList.remove('prev--active');
     elNextBtn.disabled=false;
 }
 
 
-let openNextBtn=()=>{
+const openNextBtn=()=>{
     elNextBtn.classList.add('prev--active');
     elNextBtn.disabled=true;
 }
 
 
-let closeBtn=()=>{
+const closeBtn=()=>{
     closeNextBtn()
     closePrevBtn()
 }
@@ -424,5 +423,5 @@ const fullData = () => {
             renderError();
         })
 }
-renderBookmark(bookmarkArr,elTable);
+renderBookmark(bookmarkArr,elCard);
 fullData();
